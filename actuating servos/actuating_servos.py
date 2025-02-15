@@ -3,11 +3,13 @@ import serial
 import time
 
 # === Configuration ===
-# Replace with your Arduino's serial port.
-SERIAL_PORT = 'COM9'  # e.g., 'COM3' for Windows or '/dev/ttyUSB0' for Linux
+SERIAL_PORT = 'COM9'  # Change as needed (e.g., 'COM3' on Windows)
 BAUD_RATE = 9600
-UPDATE_DELAY = 0.01  # seconds between updates
-STEP_SIZE = 1        # incremental step for angle update
+UPDATE_DELAY = 0.05      # Seconds between updates
+STEP_SIZE = 10          # Increment (in degrees) for gradual servo movement
+ALPHA = 0.25               # Low pass filter constant (0 < ALPHA <= 1)
+JOYSTICK_DEADZONE = 0.1   # Joystick values below this are ignored to avoid noise
+DELTA_SENSITIVITY = 2.0   # Degrees to change per update at full joystick deflection
 
 # === Serial Setup ===
 try:
@@ -31,20 +33,14 @@ joystick.init()
 print("Joystick connected:", joystick.get_name())
 
 # === Variables for Servo Angle ===
-current_angle = 135  # Start at mid-point (135 degrees)
-target_angle = current_angle
-
-def scale_axis_to_angle(axis_value):
-    """
-    Scale the axis value (-1 to 1) to an angle (0 to 270).
-    """
-    # Transform axis_value from [-1, 1] to [0, 1] and then scale to 270.
-    angle = int(((axis_value + 1) / 2) * 270)
-    return angle
+current_angle = 135  # Starting angle (e.g., mid-point)
+target_angle = current_angle  # This value is "latched" and updated incrementally
+# Initialize the filtered axis with the current joystick reading.
+filtered_axis = joystick.get_axis(0)
 
 def update_angle(current, target, step):
     """
-    Incrementally update the current angle toward the target angle.
+    Gradually move the current angle toward the target angle.
     """
     if current < target:
         return min(current + step, target)
@@ -54,24 +50,39 @@ def update_angle(current, target, step):
 
 try:
     while True:
-        # Process any pygame events (e.g., joystick movement)
+        # Process pygame events (to keep internal states updated)
         for event in pygame.event.get():
-            if event.type == pygame.JOYAXISMOTION:
-                # For example, use the left stick horizontal axis (axis 0)
-                axis_value = joystick.get_axis(0)
-                target_angle = scale_axis_to_angle(axis_value)
-                print(f"Joystick axis: {axis_value:.2f} -> Target angle: {target_angle}")
+            pass
 
-        # Incrementally update the current angle toward the target
+        # Read raw joystick axis (e.g., left stick horizontal axis at index 0)
+        raw_axis_value = joystick.get_axis(0)
+
+        # Apply low-pass filtering to smooth out noise.
+        filtered_axis = ALPHA * raw_axis_value + (1 - ALPHA) * filtered_axis
+
+        # If the joystick movement is beyond the deadzone, update the target angle.
+        if abs(filtered_axis) > JOYSTICK_DEADZONE:
+            # Compute a relative change from the filtered value.
+            delta = filtered_axis * DELTA_SENSITIVITY
+            target_angle += delta
+            # Clamp the target angle to the valid range [0, 270].
+            target_angle = max(0, min(270, target_angle))
+        else:
+            delta = 0  # No change when within the deadzone.
+
+        # For debugging: print joystick values and computed angles.
+        print(f"Raw: {raw_axis_value:.2f}, Filtered: {filtered_axis:.2f}, "
+              f"Delta: {delta:.2f}, Target: {target_angle}")
+
+        # Gradually update the servo's current angle toward the target angle.
         current_angle = update_angle(current_angle, target_angle, STEP_SIZE)
 
-        # Send the current angle over serial to Arduino.
-        # We add a newline so the Arduino can read line-by-line.
+        # Send the current angle over serial to the Arduino.
         message = f"{current_angle}\n"
         ser.write(message.encode('utf-8'))
         print(f"Sending angle: {current_angle}")
 
-        # Wait a bit before the next update
+        # Wait before the next update.
         time.sleep(UPDATE_DELAY)
 
 except KeyboardInterrupt:

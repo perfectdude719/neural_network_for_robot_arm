@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="robo_surgeon">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="5.45159236685514E-05 -0.000399081710402182 0.0446947969006861"
+        rpy="0 0 0" />
+      <mass
+        value="1.07379139205857" />
+      <inertia
+        ixx="0.00402747876832871"
+        ixy="3.41583049207223E-06"
+        ixz="-1.56626887621309E-06"
+        iyy="0.00400531073534176"
+        iyz="8.32964112236424E-06"
+        izz="0.00694039322912872" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robo_surgeon/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robo_surgeon/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="rotating plat">
+    <inertial>
+      <origin
+        xyz="-0.00624396650572525 0.0665143480778565 -0.028908448431995"
+        rpy="0 0 0" />
+      <mass
+        value="1.03016312985421" />
+      <inertia
+        ixx="0.00159275298605219"
+        ixy="2.83331836017957E-06"
+        ixz="-4.79303643599935E-05"
+        iyy="0.00210005169443648"
+        iyz="1.20274311743144E-05"
+        izz="0.00139974128123565" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robo_surgeon/meshes/rotating plat.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robo_surgeon/meshes/rotating plat.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rotating plat"
+    type="revolute">
+    <origin
+      xyz="0.00014623 -0.00093908 0.051"
+      rpy="1.5708 0 0.45185" />
+    <parent
+      link="base_link" />
+    <child
+      link="rotating plat" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-2.3562"
+      upper="2.3562"
+      effort="4.5"
+      velocity="3.5" />
+  </joint>
+  <link
+    name="shoulder">
+    <inertial>
+      <origin
+        xyz="-0.0376166349407513 0.106676355594488 0.0139682113949096"
+        rpy="0 0 0" />
+      <mass
+        value="0.352205878685977" />
+      <inertia
+        ixx="0.000402656884118358"
+        ixy="9.12472240942998E-05"
+        ixz="-4.44912274227377E-07"
+        iyy="0.000188161355208957"
+        iyz="-1.88566356117672E-05"
+        izz="0.000404992794339975" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robo_surgeon/meshes/shoulder.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robo_surgeon/meshes/shoulder.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="shoulder"
+    type="revolute">
+    <origin
+      xyz="0 0.097 0"
+      rpy="-0.070463 -0.010841 -0.30519" />
+    <parent
+      link="rotating plat" />
+    <child
+      link="shoulder" />
+    <axis
+      xyz="0.22813 0 0.97363" />
+    <limit
+      lower="-2.3562"
+      upper="2.3562"
+      effort="35"
+      velocity="3.5" />
+  </joint>
+  <link
+    name="elbow">
+    <inertial>
+      <origin
+        xyz="0.00236534487815723 0.109375883200279 0.0100819201715995"
+        rpy="0 0 0" />
+      <mass
+        value="0.369635386952474" />
+      <inertia
+        ixx="0.000513660356166473"
+        ixy="-3.09622701923035E-06"
+        ixz="-4.808452710228E-05"
+        iyy="0.000321612685390011"
+        iyz="-1.32398437965552E-05"
+        izz="0.000319822686669995" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robo_surgeon/meshes/elbow.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robo_surgeon/meshes/elbow.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="elbow"
+    type="revolute">
+    <origin
+      xyz="-0.07417 0.20426 0.017379"
+      rpy="0.084933 -0.015924 0.37046" />
+    <parent
+      link="shoulder" />
+    <child
+      link="elbow" />
+    <axis
+      xyz="-0.22813 0 -0.97363" />
+    <limit
+      lower="-2.3562"
+      upper="2.3562"
+      effort="15"
+      velocity="3.5" />
+  </joint>
+  <link
+    name="wrist">
+    <inertial>
+      <origin
+        xyz="-0.00943950955234735 0.0660733540868991 0.00246856643503929"
+        rpy="0 0 0" />
+      <mass
+        value="0.549040489337603" />
+      <inertia
+        ixx="0.00344697171868037"
+        ixy="-0.000525734077846984"
+        ixz="-2.93917564957337E-05"
+        iyy="0.0004072663940434"
+        iyz="0.000123189471980171"
+        izz="0.0033284343362078" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robo_surgeon/meshes/wrist.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robo_surgeon/meshes/wrist.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wrist"
+    type="revolute">
+    <origin
+      xyz="3.1123E-05 0.19594 0"
+      rpy="-0.15591 -0.059183 -0.72443" />
+    <parent
+      link="elbow" />
+    <child
+      link="wrist" />
+    <axis
+      xyz="0.22813 0 0.97363" />
+    <limit
+      lower="-2.3562"
+      upper="2.3562"
+      effort="4.5"
+      velocity="3.5" />
+  </joint>
+  <link
+    name="Roll">
+    <inertial>
+      <origin
+        xyz="-2.57486720833811E-09 0.00460505638659822 6.85083644258455E-07"
+        rpy="0 0 0" />
+      <mass
+        value="0.000352834590441443" />
+      <inertia
+        ixx="3.52133821186981E-09"
+        ixy="5.44335443618572E-15"
+        ixz="1.05765248923479E-14"
+        iyy="2.80572355118843E-09"
+        iyz="-9.64645627922809E-13"
+        izz="3.97771527048884E-09" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robo_surgeon/meshes/Roll.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robo_surgeon/meshes/Roll.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Roll"
+    type="revolute">
+    <origin
+      xyz="-0.10665 -0.40338 0.025246"
+      rpy="0.044673 0.42669 2.9856" />
+    <parent
+      link="wrist" />
+    <child
+      link="Roll" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.5708"
+      upper="1.5708"
+      effort="1.2748"
+      velocity="3.5" />
+  </joint>
+  <link
+    name="Yaw">
+    <inertial>
+      <origin
+        xyz="-9.44798456137264E-09 0.00404622316467828 -3.81429557244628E-06"
+        rpy="0 0 0" />
+      <mass
+        value="0.000312033095027245" />
+      <inertia
+        ixx="4.28824534764502E-09"
+        ixy="-1.74398562102466E-14"
+        ixz="1.82526518334343E-14"
+        iyy="2.3853099749667E-09"
+        iyz="-2.58110190118632E-12"
+        izz="3.48784615971433E-09" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robo_surgeon/meshes/Yaw.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robo_surgeon/meshes/Yaw.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Yaw"
+    type="revolute">
+    <origin
+      xyz="0 0.0086093 0"
+      rpy="-2.6864 0 3.1416" />
+    <parent
+      link="Roll" />
+    <child
+      link="Yaw" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-1.5708"
+      upper="1.5708"
+      effort="1.2748"
+      velocity="3.5" />
+  </joint>
+  <link
+    name="Pitch1">
+    <inertial>
+      <origin
+        xyz="0.00499040031133615 0.000764359884582178 -0.000301970078778302"
+        rpy="0 0 0" />
+      <mass
+        value="9.04568568398412E-05" />
+      <inertia
+        ixx="1.76457893824391E-10"
+        ixy="-1.0053836769791E-10"
+        ixz="-1.23647436232591E-10"
+        iyy="1.29157844598399E-09"
+        iyz="-1.42120255140136E-11"
+        izz="1.24331483985866E-09" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robo_surgeon/meshes/Pitch1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robo_surgeon/meshes/Pitch1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Pitch1"
+    type="revolute">
+    <origin
+      xyz="0 0.00736 0"
+      rpy="0 0 1.5317" />
+    <parent
+      link="Yaw" />
+    <child
+      link="Pitch1" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1.5708"
+      upper="1.5708"
+      effort="1.2748"
+      velocity="3.5" />
+  </joint>
+  <link
+    name="Pitch2">
+    <inertial>
+      <origin
+        xyz="0.00499040031133419 0.000764359884577681 -0.000301970078784519"
+        rpy="0 0 0" />
+      <mass
+        value="9.04568568398405E-05" />
+      <inertia
+        ixx="1.76457893824382E-10"
+        ixy="-1.00538367697869E-10"
+        ixz="-1.2364743623259E-10"
+        iyy="1.29157844598398E-09"
+        iyz="-1.4212025514009E-11"
+        izz="1.24331483985864E-09" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robo_surgeon/meshes/Pitch2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robo_surgeon/meshes/Pitch2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Pitch2"
+    type="revolute">
+    <origin
+      xyz="0 0.00736 0"
+      rpy="3.1416 0 0.63818" />
+    <parent
+      link="Yaw" />
+    <child
+      link="Pitch2" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1.5708"
+      upper="1.5708"
+      effort="1.2748"
+      velocity="3.5" />
+  </joint>
+</robot>

@@ -1,4 +1,0 @@
-Constrained Instances: 'Pack and go 8-II( Updated Final Assembly File)(Left side) -Shoulder base-1', 'Pack and go 8-II( Updated Final Assembly File)(Left side) -Shoulder base-1', 'Pack and go 8-II( Updated Final Assembly File)Base Rotator-1'
-Constraint Name: Width4
-Error Details: Constraint is not supported. The constraint has been ignored.
----------------------------------------------------------------------------------
